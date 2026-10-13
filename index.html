@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Quantum Block Matrix — Premium Ad-Free Block Puzzle by Lalith Madanayake</title>
+  <meta name="description" content="Quantum Block Matrix is a premium, 100% ad-free block puzzle game featuring the Quantum Hold Chamber, 3 Power Tools, and 50 Campaign Quests. Engineered by Lalith Madanayake.">
+  <meta name="keywords" content="Quantum Block Matrix, Lalith Madanayake, block puzzle, ad-free puzzle game, privacy-first mobile game">
+  <meta name="author" content="Lalith Madanayake">
+  <link rel="icon" type="image/png" href="assets/icon.png">
+  
+  <!-- Open Graph / Social Meta -->
+  <meta property="og:title" content="Quantum Block Matrix — Premium Block Puzzle">
+  <meta property="og:description" content="100% Ad-Free, Anti-Cheap RNG, Quantum Hold Chamber, and 50 Quests. Developed by Lalith Madanayake.">
+  <meta property="og:image" content="assets/banner.png">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-midnight: #050811;
+      --bg-surface: #0b132b;
+      --bg-card: #111c3a;
+      --bg-card-hover: #16244a;
+      --border-subtle: #1e293b;
+      --neon-cyan: #00f0ff;
+      --neon-cyan-glow: rgba(0, 240, 255, 0.35);
+      --neon-emerald: #00ff88;
+      --solar-amber: #ffb300;
+      --plasma-pink: #ff007f;
+      --laser-crimson: #ff3366;
+      --electric-violet: #9d4edd;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-midnight);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 85% 30%, rgba(157, 78, 221, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 15% 70%, rgba(0, 255, 136, 0.05) 0%, transparent 50%);
+    }
+
+    /* Ambient Cyber Grid Overlay */
+    .cyber-grid {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-size: 50px 50px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Top Sticky Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(5, 8, 17, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: all 0.3s ease;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .brand-logo img {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      box-shadow: 0 0 15px var(--neon-cyan-glow);
+    }
+
+    .brand-logo span {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-logo span em {
+      color: var(--neon-cyan);
+      font-style: normal;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s, text-shadow 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--neon-cyan);
+      text-shadow: 0 0 8px var(--neon-cyan-glow);
+    }
+
+    .btn-nav-action {
+      background: linear-gradient(135deg, #00f0ff 0%, #00b4d8 100%);
+      color: #050811;
+      padding: 9px 20px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-nav-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 18px var(--neon-cyan-glow);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      padding: 90px 0 60px 0;
+      text-align: center;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      border-radius: 999px;
+      color: var(--neon-cyan);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+      animation: pulseGlow 2.5s infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 8px rgba(0, 240, 255, 0.15); }
+      100% { box-shadow: 0 0 22px rgba(0, 240, 255, 0.4); }
+    }
+
+    .hero-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.8rem;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 18px;
+    }
+
+    .hero-title .gradient-text {
+      background: linear-gradient(135deg, #ffffff 30%, #00f0ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 720px;
+      margin: 0 auto 36px auto;
+      font-weight: 400;
+    }
+
+    .hero-author {
+      font-size: 1rem;
+      color: var(--solar-amber);
+      font-weight: 600;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00f0ff, #00b4d8);
+      color: #050811;
+      padding: 14px 32px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.25s ease;
+      box-shadow: 0 6px 24px rgba(0, 240, 255, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 32px rgba(0, 240, 255, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(17, 28, 58, 0.7);
+      color: var(--text-main);
+      padding: 14px 30px;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 1.05rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--border-subtle);
+      transition: all 0.25s ease;
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-card);
+      border-color: var(--neon-cyan);
+      transform: translateY(-3px);
+    }
+
+    /* Hero Banner Image */
+    .hero-banner-wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 2px solid var(--border-subtle);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 240, 255, 0.15);
+      position: relative;
+    }
+
+    .hero-banner-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Stats Ribbon */
+    .stats-ribbon {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 80px 0;
+      padding: 30px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      text-align: center;
+    }
+
+    .stat-item h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      margin-bottom: 4px;
+    }
+
+    .stat-item p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* Features Grid */
+    .section-header {
+      text-align: center;
+      margin-bottom: 54px;
+    }
+
+    .section-header .tag {
+      color: var(--neon-cyan);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .section-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 90px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 32px 28px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 240, 255, 0.4);
+      background: var(--bg-card-hover);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+    }
+
+    .feature-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      color: var(--neon-cyan);
+    }
+
+    .feature-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    /* Screenshots Showcase */
+    .screenshots-section {
+      padding: 40px 0 90px 0;
+    }
+
+    .screenshots-scroll {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .screenshot-item {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .screenshot-item:hover {
+      transform: scale(1.02);
+      border-color: var(--neon-cyan);
+    }
+
+    .screenshot-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .screenshot-caption {
+      padding: 14px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-align: center;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    /* Embedded Playable Demo Widget */
+    .play-section {
+      padding: 40px 0 90px 0;
+      text-align: center;
+    }
+
+    .play-box {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 40px 24px;
+      max-width: 600px;
+      margin: 0 auto;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6);
+    }
+
+    .play-box h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+
+    .play-box p {
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    /* PRIVACY POLICY SECTION (ATTRACTIVE ATTACHED CARD) */
+    .privacy-section {
+      padding: 90px 0;
+      scroll-margin-top: 80px;
+    }
+
+    .privacy-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      border-radius: 28px;
+      padding: 56px 48px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 240, 255, 0.08);
+      position: relative;
+    }
+
+    .privacy-card h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .privacy-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 36px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .privacy-meta span {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+
+    .privacy-meta strong {
+      color: var(--neon-cyan);
+    }
+
+    .policy-block {
+      margin-bottom: 32px;
+    }
+
+    .policy-block h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.35rem;
+      color: var(--neon-cyan);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .policy-block p, .policy-block ul {
+      color: #cbd5e1;
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .policy-block ul {
+      padding-left: 24px;
+    }
+
+    .policy-block li {
+      margin-bottom: 8px;
+    }
+
+    .contact-box {
+      background: rgba(11, 19, 43, 0.85);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 28px;
+      margin-top: 36px;
+    }
+
+    .contact-box h4 {
+      font-size: 1.2rem;
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+
+    .contact-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-midnight);
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .contact-item .icon {
+      font-size: 1.4rem;
+    }
+
+    .contact-item a {
+      color: var(--neon-cyan);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .contact-item a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-midnight);
+      padding: 48px 0;
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--neon-cyan);
+    }
+
+    .copyright {
+      color: var(--text-dim);
+      font-size: 0.85rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-title { font-size: 2.6rem; }
+      .nav-links { display: none; }
+      .privacy-card { padding: 32px 20px; }
+      .features-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cyber-grid"></div>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="container nav-container">
+      <a href="#" class="brand-logo">
+        <img src="assets/icon.png" alt="Quantum Block Matrix Icon">
+        <span>QUANTUM <em>MATRIX</em></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#play">Play Online</a></li>
+        <li><a href="#screenshots">Screenshots</a></li>
+        <li><a href="#privacy">Privacy Policy</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="Quantum_Block_Matrix_v1.0.0_Signed.apk" class="btn-nav-action" download>Download APK</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="badge-pill">
+        <span>✦</span> 100% AD-FREE &bull; USD $2 ONE-TIME PURCHASE &bull; ZERO TRACKERS
+      </div>
+
+      <h1 class="hero-title">
+        <span class="gradient-text">QUANTUM BLOCK MATRIX</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        The purest mobile block puzzle experience in the world. Built without annoying 30-second video interruptions, deceptive timers, or rigged algorithms.
+      </p>
+
+      <div class="hero-author">
+        <span>🛡️</span> Engineered by <strong>Lalith Madanayake</strong>
+      </div>
+
+      <div class="cta-group">
+        <a href="#play" class="btn-primary">
+          <span>⚡</span> Play Web / iOS Demo
+        </a>
+        <a href="Quantum_Block_Matrix_v1.0.0_Signed.apk" class="btn-secondary" download>
+          <span>📥</span> Download Android APK (12.5MB)
+        </a>
+        <a href="#privacy" class="btn-secondary">
+          <span>🔒</span> Privacy Policy
+        </a>
+      </div>
+
+      <div class="hero-banner-wrap">
+        <img src="assets/banner.png" alt="Quantum Block Matrix Feature Banner">
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Ribbon -->
+  <div class="container">
+    <div class="stats-ribbon">
+      <div class="stat-item">
+        <h3>0%</h3>
+        <p>Zero Video Ads or Banners</p>
+      </div>
+      <div class="stat-item">
+        <h3>50</h3>
+        <p>Tactical Campaign Quests</p>
+      </div>
+      <div class="stat-item">
+        <h3>0 ms</h3>
+        <p>Procedural Chime Latency</p>
+      </div>
+      <div class="stat-item">
+        <h3>100%</h3>
+        <p>Offline & Private Sandbox</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Innovations Section -->
+  <section id="features" class="container">
+    <div class="section-header">
+      <div class="tag">Quantum Innovations</div>
+      <h2>Designed to Outperform the World's #1 Game</h2>
+    </div>
+
+    <div class="features-grid">
+      <!-- 1 -->
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <h3>100% Ad-Free & Respectful</h3>
+        <p>No 30-second pop-up video ads interrupting your flow state. Zero trackers, zero battery drain, and zero telemetric profiling.</p>
+      </div>
+
+      <!-- 2 -->
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Anti-Cheap RNG System</h3>
+        <p>Unlike status-quo games that serve unplaceable 3×3 blocks when your board is full, Quantum evaluates matrix entropy and guarantees fair strategic placement.</p>
+      </div>
+
+      <!-- 3 -->
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <h3>Quantum Hold Chamber</h3>
+        <p>Store any awkward piece in reserve and deploy it into battle when the perfect tactical opportunity opens up.</p>
+      </div>
+
+      <!-- 4 -->
+      <div class="feature-card">
+        <div class="feature-icon">💥</div>
+        <h3>3 Quantum Power Tools</h3>
+        <p>Unleash the <strong>Plasma Bomb</strong> (3×3 blast), <strong>Quantum Laser</strong> (crosshair row & col clear), and <strong>Matrix Reroll</strong> to master the board.</p>
+      </div>
+
+      <!-- 5 -->
+      <div class="feature-card">
+        <div class="feature-icon">⚔️</div>
+        <h3>4 Distinct Game Modes</h3>
+        <p>Play <strong>Classic Zen</strong>, conquer <strong>50 Campaign Quests</strong> with Cryo-Ice & Bombs, race the <strong>2-Min Blitz</strong>, or clash in <strong>AI Cyber-Duel</strong>.</p>
+      </div>
+
+      <!-- 6 -->
+      <div class="feature-card">
+        <div class="feature-icon">🎵</div>
+        <h3>Procedural Harmonic Chimes</h3>
+        <p>Combos synthesize ascending Pentatonic crystal glass chimes (C5 to E6) and deep sub-bass drops via 16-bit PCM AudioTrack synthesis.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Play Online / Demo Widget -->
+  <section id="play" class="container play-section">
+    <div class="play-box">
+      <div class="badge-pill" style="margin-bottom: 12px;">TOUCH-OPTIMIZED HTML5 &bull; PWA READY</div>
+      <h3>Play Instantly in Your Browser</h3>
+      <p>Enjoy the full Quantum Block Matrix experience right here on iPhone Safari, iPad, Android Chrome, and Desktop browsers.</p>
+      <a href="web_ios/index.html" class="btn-primary" style="font-size: 1.15rem; padding: 16px 36px;">
+        <span>▶</span> Launch Fullscreen Web Game
+      </a>
+    </div>
+  </section>
+
+  <!-- Showcase Screenshots Gallery -->
+  <section id="screenshots" class="container screenshots-section">
+    <div class="section-header">
+      <div class="tag">Showcase Gallery</div>
+      <h2>Engineered for High-Contrast OLED Displays</h2>
+    </div>
+
+    <div class="screenshots-scroll">
+      <div class="screenshot-item">
+        <img src="assets/screenshots/screenshot_1_classic_zen.png" alt="Classic Zen Mode">
+        <div class="screenshot-caption">Classic Zen Mode &bull; Anti-Cheap RNG</div>
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/screenshots/screenshot_2_hold_chamber.png" alt="Quantum Hold Chamber">
+        <div class="screenshot-caption">Quantum Hold Chamber &bull; Power Tools</div>
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/screenshots/screenshot_3_campaign_quest.png" alt="50 Campaign Quests">
+        <div class="screenshot-caption">50 Campaign Quests &bull; Cryo-Ice &amp; Bombs</div>
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/screenshots/screenshot_4_cyber_duel.png" alt="AI Cyber-Duel">
+        <div class="screenshot-caption">AI Cyber-Duel &bull; Glitch Disruptors</div>
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/screenshots/screenshot_5_blitz_frenzy.png" alt="2-Minute Blitz">
+        <div class="screenshot-caption">2-Minute Blitz &bull; Fever Multipliers</div>
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/screenshots/screenshot_6_premium_promise.png" alt="Premium Quality Promise">
+        <div class="screenshot-caption">100% Ad-Free &bull; Lalith Madanayake</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVACY POLICY SECTION (ATTRACTIVE ATTACHED CARD) -->
+  <section id="privacy" class="container privacy-section">
+    <div class="privacy-card">
+      <div class="badge-pill">
+        <span>🔒</span> OFFICIAL PRIVACY STATEMENT &bull; GOOGLE PLAY &amp; APP STORE COMPLIANT
+      </div>
+
+      <h2>Privacy Policy</h2>
+      <div class="privacy-meta">
+        <span>Application: <strong>Quantum Block Matrix</strong> (<code>com.quantum.blockmatrix</code>)</span>
+        <span>Version: <strong>1.0.0</strong></span>
+        <span>Effective Date: <strong>October 14, 2026</strong></span>
+      </div>
+
+      <div class="policy-block">
+        <h3><span>1.</span> Overview &amp; Privacy-First Philosophy</h3>
+        <p>
+          <strong>Quantum Block Matrix</strong> is engineered and published by independent developer <strong>Lalith Madanayake</strong>. We firmly believe that mobile gaming should be an enjoyable, serene sanctuary free from data harvesting, surveillance capitalism, and advertising trackers.
+        </p>
+        <p>
+          This Privacy Policy explains in transparent, plain language our strict policy of <strong>zero data collection</strong> and describes how your privacy is completely respected across Android, iOS, and Web platforms.
+        </p>
+      </div>
+
+      <div class="policy-block">
+        <h3><span>2.</span> Zero Personal Data Collection</h3>
+        <p>
+          Quantum Block Matrix does <strong>NOT</strong> collect, harvest, record, share, or sell any personal data whatsoever:
+        </p>
+        <ul>
+          <li><strong>No Personal Identifiers:</strong> We do not ask for or collect names, email addresses, phone numbers, ages, or physical addresses within the app.</li>
+          <li><strong>No Device Identifiers:</strong> We do not access or store IMEI numbers, Android Advertising IDs (AAID), IDFA, IP addresses, or MAC addresses.</li>
+          <li><strong>No Location Data:</strong> The application does not use GPS, Wi-Fi tri-angulation, or IP-based geolocation.</li>
+          <li><strong>No Telemetry or Analytics:</strong> There are zero third-party telemetry, crash-reporting, or analytics SDKs (e.g., no Firebase Analytics, no Google Analytics, no Facebook SDK).</li>
+        </ul>
+      </div>
+
+      <div class="policy-block">
+        <h3><span>3.</span> 100% Ad-Free Experience</h3>
+        <p>
+          Quantum Block Matrix is a paid, premium application priced at a one-time fee of <strong>USD $1.99 / $2.00</strong>.
+        </p>
+        <p>
+          The application contains <strong>ZERO advertisements</strong>. You will never encounter interstitial video ads, banner ads, native sponsored content, or rewarded video ad networks. As a result, no advertising identifier or behavioral profiling occurs.
+        </p>
+      </div>
+
+      <div class="policy-block">
+        <h3><span>4.</span> Device Permissions Disclosures</h3>
+        <p>
+          Quantum Block Matrix requests the absolute minimum permissions strictly required for offline game functionality:
+        </p>
+        <ul>
+          <li><code>android.permission.VIBRATE</code>: Exclusively used to actuate the device’s vibration motor for crisp tactile feedback (micro-ticks on piece drag, mechanical snap on block placement, and multi-pulse rumble on multi-line clears). You can toggle haptics on or off at any time in the in-game settings.</li>
+        </ul>
+        <p>The application does NOT request camera, microphone, storage, contacts, location, or network permissions.</p>
+      </div>
+
+      <div class="policy-block">
+        <h3><span>5.</span> Local Sandbox Storage</h3>
+        <p>
+          All game state data — including high scores, 50 campaign level completion stars, and audio/haptic preferences — is stored strictly on your local device using Android SharedPreferences or Web LocalStorage.
+        </p>
+        <p>
+          This data remains completely sandboxed within your device and is never transmitted over the internet to external servers.
+        </p>
+      </div>
+
+      <div class="policy-block">
+        <h3><span>6.</span> Children’s Privacy (COPPA &amp; GDPR Compliance)</h3>
+        <p>
+          Quantum Block Matrix is family-friendly and rated for Everyone (PEGI 3, ESRB Everyone). Because we collect zero personal data from any user, we strictly comply with the Children’s Online Privacy Protection Act (COPPA), the General Data Protection Regulation (GDPR), and Google Play’s Families Policy.
+        </p>
+      </div>
+
+      <!-- Developer Contact Information -->
+      <div id="contact" class="contact-box">
+        <h4>Developer &amp; Support Contact</h4>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          If you have any questions, suggestions, or technical support inquiries regarding Quantum Block Matrix or this Privacy Policy, please contact the developer directly:
+        </p>
+
+        <div class="contact-details">
+          <div class="contact-item">
+            <span class="icon">👤</span>
+            <div>
+              <div style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; font-weight:700;">Developer</div>
+              <strong style="color: var(--text-main);">Lalith Madanayake</strong>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <span class="icon">✉️</span>
+            <div>
+              <div style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; font-weight:700;">Direct Email</div>
+              <a href="mailto:lmadanayake@gmail.com">lmadanayake@gmail.com</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <span class="icon">📞</span>
+            <div>
+              <div style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; font-weight:700;">Phone / WhatsApp</div>
+              <a href="tel:+94777210775">+94 77 721 0775</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <span class="icon">📍</span>
+            <div>
+              <div style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; font-weight:700;">Location</div>
+              <span style="color: var(--text-muted); font-size: 0.95rem;">Colombo, Western Province, Sri Lanka</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <div class="brand-logo">
+        <img src="assets/icon.png" alt="Quantum Block Matrix">
+        <span>QUANTUM <em>MATRIX</em></span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#play">Play Online</a></li>
+        <li><a href="#screenshots">Screenshots</a></li>
+        <li><a href="#privacy">Privacy Policy</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="privacy.html">Standalone Privacy Page</a></li>
+      </ul>
+      <p class="copyright">
+        &copy; 2026 <strong>Lalith Madanayake</strong>. All Rights Reserved.<br>
+        Quantum Block Matrix &bull; Package: <code>com.quantum.blockmatrix</code> &bull; Built with pride for Android &amp; iOS.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
